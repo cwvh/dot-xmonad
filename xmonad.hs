@@ -20,18 +20,26 @@ main = do
                         , ppTitle = xmobarColor "green" "" . shorten 50
                         }
         }
-        `additionalKeysP` myKeys
+        `additionalKeys` myKeys
+
+winKey = mod4Mask
+altKey = mod1Mask
+volumeStep = 8
+
+myKeys =
+    [ ((altKey .|. controlMask, xK_l), spawn "systemctl suspend")
+
+    -- applications
+    , ((winKey, xK_c), spawn "chromium")
+    , ((winKey .|. shiftMask, xK_c), spawn "chromium --incognito")
+
+    -- function keys
+    , ((0, xK_F5), getMute >>= setMute . not >> return ())
+    , ((0, xK_F6), setMute False >> lowerVolume volumeStep >> return ())
+    , ((0, xK_F7), setMute False >> raiseVolume volumeStep >> return ())
+    ]
 
 myManageHook = composeAll
     [ className =? "Vlc"        --> doFloat
     -- , className =? "Chromium"   --> doF (W.shift (myWorkspaces !! 2))
-    ]
-
-myKeys =
-    [ ("M-w"        , spawn "chromium")
-    , ("M-S-w"      , spawn "chromium --incognito")
-    , ("<F5>"       , getMute >>= setMute . not >> return ())
-    , ("<F6>"       , setMute False >> lowerVolume 8 >> return ())
-    , ("<F7>"       , setMute False >> raiseVolume 8 >> return ())
-    , ("M-S-z"      , spawn "systemctl suspend")
     ]
