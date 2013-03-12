@@ -24,19 +24,20 @@ main = do
 
 winKey = mod4Mask
 altKey = mod1Mask
-volumeStep = 8
+volumeStep = 4
 
 myKeys =
-    [ ((altKey .|. controlMask, xK_l), spawn "systemctl suspend")
+    [ ((winKey, xK_s), spawn "systemctl suspend")
 
     -- applications
     , ((winKey, xK_c), spawn "chromium")
     , ((winKey .|. shiftMask, xK_c), spawn "chromium --incognito")
+    , ((winKey, xK_f), spawn "firefox")
 
-    -- function keys
-    , ((0, xK_F5), getMute >>= setMute . not >> return ())
-    , ((0, xK_F6), setMute False >> lowerVolume volumeStep >> return ())
-    , ((0, xK_F7), setMute False >> raiseVolume volumeStep >> return ())
+    -- audio management
+    , ((winKey, xK_F5), getMute >>= setMute . not >> return ())
+    , ((winKey, xK_F6), setMute False >> lowerVolume volumeStep >> return ())
+    , ((winKey, xK_F7), setMute False >> raiseVolume volumeStep >> return ())
     ]
 
 myManageHook = composeAll
