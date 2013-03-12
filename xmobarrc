@@ -4,11 +4,14 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
        , fgColor = "grey"
        , position = Top
        , hideOnStart = False
+       , lowerOnStart = True
+       , persistent = True
+       , border = TopB
        , commands = [ Run Weather "KDMA" ["-t","<station>: <tempF>F","-L","50","-H","95","--normal","green","--high","red","--low","lightblue"] 36000
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 50
                     , Run Memory ["-t","Mem: <usedratio>%"] 50
                     , Run Swap [] 50
-                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 50
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
