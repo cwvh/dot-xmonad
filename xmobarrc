@@ -12,10 +12,11 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                     , Run Memory ["-t","Mem: <usedratio>%"] 50
                     , Run Swap [] 50
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% * %swap% }{ <fc=#ee9a00>%date%</fc>| %KDMA%"
+       , template = "%cpu% | %memory% * %swap% | %StdinReader% }{ <fc=#ee9a00>%date%</fc> | %KDMA%"
        }
 
 -- vim: ft=haskell
